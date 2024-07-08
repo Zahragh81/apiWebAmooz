@@ -50,5 +50,15 @@ Route::apiResource('user', UserController::class);
 
 
 //پکیج سنکتون با توجه به دوره
-Route::post('register', [AuthController::class, 'register']);
-Route::post('login', [AuthController::class, 'login']);
+//Route::post('register', [AuthController::class, 'register']);
+//Route::post('login', [AuthController::class, 'login']);
+//Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:api');
+
+
+
+//پکیج سنکتون با روش جدید
+Route::prefix('/auth')->controller(AuthController::class)->group(function (){
+    Route::post('/register', 'register')->middleware('guest');
+    Route::post('/login', 'login')->middleware('guest');
+    Route::post('/logout', 'logout')->middleware('auth:api');
+});
